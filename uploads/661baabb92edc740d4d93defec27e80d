@@ -1,0 +1,4 @@
+name,image,price,category_id
+Phone 1,https://example.com/phone1.jpg,299.99,1e764cc8-599d-41da-b4e0-abb3c8cf82e4
+Phone 2,https://example.com/phone1.jpg,300.99,1e764cc8-599d-41da-b4e0-abb3c8cf82e4
+"""65dd061e-e0ac-4ab6-88df-da08676c3b22""",,,
