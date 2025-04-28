@@ -4,8 +4,8 @@ const pool = require('../config/database');
 const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
 const jwt = require('jsonwebtoken');
+// const prisma = require('../../prisma/prismaClient');
 const authenticateToken =require('../middlewares/auth')
-
 
 // Create User
 userRouter.post("/user/signup",async (req, res) => {
@@ -20,8 +20,11 @@ userRouter.post("/user/signup",async (req, res) => {
       'INSERT INTO users (id, email, password) VALUES ($1, $2, $3)',
       [id, email, hashedPassword]
     );
+    // const user = await prisma.user.create({
+    //   data: { email, password: hashedPassword },
+    // });
 
-    res.status(201).json({ message: 'User created successfully', id });
+    res.status(201).json({ message: 'User created successfully', user });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Something went wrong' });

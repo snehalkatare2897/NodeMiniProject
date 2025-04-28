@@ -54,20 +54,32 @@ productRouter.post("/product/create", authenticateToken, async (req, res) => {
 // Get all products (with category name  product filter,sorting and limit)
 productRouter.get("/product/getall", async (req, res) => {
   try {
-    let { category, name, limit } = req.body;
+    let { category, name, limit } = req.query;
     console.log(name)
     if (category) {
       category = ` AND c.name ='${category}'`
+    }else{
+      category = ` AND 1=1`
     }
     if (name) {
       name = ` AND p.name ='${name}'`
+    }else{
+      name = ` AND 1=1`
     }
 
     if (limit) {
       limit = `limit ${limit}`
+    }else{
+      limit = `limit 10`
     }
 
     // const offset = (page - 1) * limit;
+    console.log(
+      `SELECT p.id, p.name, p.image, p.price, c.name AS category
+      FROM productsbulk p
+      JOIN categories c ON p.category_id = c.id
+      where 1=1 ${category} ${name} 
+      ORDER BY  p.price desc ${limit}`)
     const result = await pool.query(`
       SELECT p.id, p.name, p.image, p.price, c.name AS category
       FROM productsbulk p
